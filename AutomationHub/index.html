@@ -1,0 +1,454 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sim Modular - Hệ Thống Tự Động Hóa Sự Kiện & CRM</title>
+    <meta name="description" content="Hệ thống điều khiển mô phỏng quy trình tự động hóa khép kín dành cho sản phẩm ghế răng nha khoa Sim Modular.">
+    <!-- Google Fonts: Inter & Outfit -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Outfit:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <link rel="stylesheet" href="index.css">
+</head>
+<body>
+    <div class="app-container">
+        <!-- Sidebar Navigation -->
+        <aside class="app-sidebar">
+            <div class="sidebar-header">
+                <div class="logo-container">
+                    <span class="logo-icon"><i data-lucide="cpu"></i></span>
+                    <div class="logo-text">
+                        <h1>Sim Modular</h1>
+                        <span class="logo-sub">AUTOMATION HUB</span>
+                    </div>
+                </div>
+            </div>
+            <nav class="sidebar-nav">
+                <button class="nav-item active" id="btn-tab-dashboard" onclick="switchTab('dashboard')">
+                    <i data-lucide="layout-dashboard"></i>
+                    <span>Bảng Điều Khiển</span>
+                </button>
+                <button class="nav-item" id="btn-tab-landing" onclick="switchTab('landing')">
+                    <i data-lucide="globe"></i>
+                    <span>1. Trang Giới Thiệu (Landing Page)</span>
+                </button>
+                <button class="nav-item" id="btn-tab-crm" onclick="switchTab('crm')">
+                    <i data-lucide="users"></i>
+                    <span>2. Quản Trị CRM & Lead Scoring</span>
+                </button>
+                <button class="nav-item" id="btn-tab-checkin" onclick="switchTab('checkin')">
+                    <i data-lucide="qr-code"></i>
+                    <span>3. Cổng Check-In & TV Sony</span>
+                </button>
+                <button class="nav-item" id="btn-tab-proposal" onclick="switchTab('proposal')">
+                    <i data-lucide="file-text"></i>
+                    <span>4. Tự Động Tạo Báo Giá & SLA</span>
+                </button>
+            </nav>
+            <div class="sidebar-footer">
+                <div class="developer-tag">
+                    <p>Hệ thống mô phỏng vận hành</p>
+                    <span>Antigravity v1.0 • 2026</span>
+                </div>
+            </div>
+        </aside>
+
+        <!-- Main Content Area -->
+        <main class="app-content">
+            <!-- Header -->
+            <header class="content-header">
+                <div class="header-left">
+                    <h2 id="current-tab-title">Bảng Điều Khiển Tổng Quan</h2>
+                    <p id="current-tab-subtitle">Giám sát dải truyền thông tin và tự động hóa thời gian thực.</p>
+                </div>
+                <div class="header-right">
+                    <div class="system-status">
+                        <span class="status-indicator online"></span>
+                        <span>Mạng EBS: Sẵn sàng</span>
+                    </div>
+                    <div class="system-clock" id="system-time">20:34:06</div>
+                </div>
+            </header>
+
+            <!-- TAB: Dashboard (Overview) -->
+            <section class="tab-content active" id="tab-dashboard">
+                <div class="dashboard-grid">
+                    <!-- Status Cards -->
+                    <div class="status-card-container">
+                        <div class="status-card gradient-cyan">
+                            <div class="card-icon"><i data-lucide="users-round"></i></div>
+                            <div class="card-info">
+                                <h3>Tổng số Lead Đăng ký</h3>
+                                <div class="value" id="stat-total-leads">0</div>
+                                <span class="trend positive"><i data-lucide="trending-up"></i> +15% tuần này</span>
+                            </div>
+                        </div>
+                        <div class="status-card gradient-purple">
+                            <div class="card-icon"><i data-lucide="party-popper"></i></div>
+                            <div class="card-info">
+                                <h3>Khách đã Check-in</h3>
+                                <div class="value" id="stat-checked-in">0</div>
+                                <span class="trend positive"><i data-lucide="check-check"></i> Đang diễn ra</span>
+                            </div>
+                        </div>
+                        <div class="status-card gradient-orange">
+                            <div class="card-icon"><i data-lucide="file-spreadsheet"></i></div>
+                            <div class="card-info">
+                                <h3>Đề xuất đã gửi</h3>
+                                <div class="value" id="stat-proposals-sent">0</div>
+                                <span class="trend positive"><i data-lucide="mail-check"></i> Tự động 100%</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Flow Visualization -->
+                    <div class="dashboard-panel panel-flow-visual glassmorphism">
+                        <div class="panel-header">
+                            <h3><i data-lucide="activity"></i> Đường ống truyền tín hiệu tự động hóa</h3>
+                            <span class="panel-tag">Thời gian thực</span>
+                        </div>
+                        <div class="flow-steps-container">
+                            <div class="flow-step" id="flow-step-1">
+                                <div class="step-circle"><i data-lucide="globe"></i></div>
+                                <h4>Giới thiệu</h4>
+                                <p>Landing Page & Quét QR</p>
+                                <span class="step-indicator active"></span>
+                            </div>
+                            <div class="flow-line"></div>
+                            <div class="flow-step" id="flow-step-2">
+                                <div class="step-circle"><i data-lucide="user-plus"></i></div>
+                                <h4>Đăng ký</h4>
+                                <p>HubSpot & Lead Scoring</p>
+                                <span class="step-indicator" id="ind-step-2"></span>
+                            </div>
+                            <div class="flow-line"></div>
+                            <div class="flow-step" id="flow-step-3">
+                                <div class="step-circle"><i data-lucide="ticket"></i></div>
+                                <h4>Sự kiện Live</h4>
+                                <p>Check-in & Sony 65' TV</p>
+                                <span class="step-indicator" id="ind-step-3"></span>
+                            </div>
+                            <div class="flow-line"></div>
+                            <div class="flow-step" id="flow-step-4">
+                                <div class="step-circle"><i data-lucide="file-check"></i></div>
+                                <h4>Chuyển đổi</h4>
+                                <p>Tự động gửi Báo giá PDF</p>
+                                <span class="step-indicator" id="ind-step-4"></span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Quick Simulator Actions -->
+                    <div class="dashboard-panel panel-actions glassmorphism">
+                        <div class="panel-header">
+                            <h3><i data-lucide="play-circle"></i> Trình giả lập nhanh cho bên liên quan</h3>
+                        </div>
+                        <div class="actions-grid">
+                            <div class="action-item" onclick="loadMockData()">
+                                <div class="action-icon"><i data-lucide="database-backup"></i></div>
+                                <div class="action-info">
+                                    <h4>Nạp dữ liệu mẫu</h4>
+                                    <p>Nạp dự án mẫu Trường Đại học Y Dược Hải Phòng (6.9 Tỷ).</p>
+                                </div>
+                            </div>
+                            <div class="action-item" onclick="switchTab('landing')">
+                                <div class="action-icon"><i data-lucide="user-cog"></i></div>
+                                <div class="action-info">
+                                    <h4>Đăng ký thử nghiệm</h4>
+                                    <p>Nhập thử một khách hàng đăng ký quan tâm và tính điểm tự động.</p>
+                                </div>
+                            </div>
+                            <div class="action-item" onclick="switchTab('checkin')">
+                                <div class="action-icon"><i data-lucide="tv"></i></div>
+                                <div class="action-info">
+                                    <h4>Trình chiếu Tivi Sony</h4>
+                                    <p>Xem hiệu ứng màn hình tivi lớn chào mừng tự động khi check-in.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- TAB: 1. Landing Page Simulator -->
+            <section class="tab-content" id="tab-landing">
+                <div class="landing-simulator-grid">
+                    <!-- Mobile Screen Mockup -->
+                    <div class="mobile-mockup-container">
+                        <div class="mobile-frame">
+                            <div class="mobile-screen">
+                                <div class="mobile-header">
+                                    <span class="notch"></span>
+                                </div>
+                                <div class="mobile-content">
+                                    <!-- Landing Page Content -->
+                                    <div class="lp-hero">
+                                        <div class="lp-logo">SIM MODULAR</div>
+                                        <h1>Hệ thống mô phỏng nha khoa đẳng cấp quốc tế</h1>
+                                        <p>Kiến tạo tư thế lâm sàng chuẩn y khoa thế hệ mới với công nghệ EBS từ Đức và Dentsply Sirona.</p>
+                                    </div>
+                                    <div class="lp-feature-card">
+                                        <div class="feat-icon"><i data-lucide="zap"></i></div>
+                                        <div>
+                                            <h3>EBS Real-time</h3>
+                                            <p>Truyền hình ảnh độ nét cao lập tức không độ trễ, không qua mạng LAN.</p>
+                                        </div>
+                                    </div>
+                                    <div class="lp-feature-card">
+                                        <div class="feat-icon"><i data-lucide="shield-check"></i></div>
+                                        <div>
+                                            <h3>Đạt chuẩn ISO 13485</h3>
+                                            <p>Đáp ứng tuyệt đối an toàn sinh học và quy trình thực tập y tế.</p>
+                                        </div>
+                                    </div>
+                                    <!-- Dynamic Capture Form -->
+                                    <div class="lp-form-container">
+                                        <h3>Đăng ký nhận Brochure & Đăng ký trải nghiệm Demo thực tế</h3>
+                                        <form id="landing-form" onsubmit="handleFormSubmit(event)">
+                                            <div class="form-group-custom">
+                                                <label for="lp-name">Họ và Tên</label>
+                                                <input type="text" id="lp-name" required placeholder="Ví dụ: PGS.TS. Nguyễn Văn A">
+                                            </div>
+                                            <div class="form-group-custom">
+                                                <label for="lp-unit">Đơn vị công tác</label>
+                                                <input type="text" id="lp-unit" required placeholder="Ví dụ: Đại học Y Dược Hải Phòng">
+                                            </div>
+                                            <div class="form-group-custom">
+                                                <label for="lp-title">Chức vụ</label>
+                                                <select id="lp-title">
+                                                    <option value="Dean">Trưởng khoa RHM / Hiệu phó / Hiệu trưởng (VIP)</option>
+                                                    <option value="Lecturer">Giảng viên chuyên môn RHM</option>
+                                                    <option value="Technician">Kỹ thuật viên trang thiết bị phòng máy</option>
+                                                    <option value="Student">Sinh viên thực tập Nha khoa</option>
+                                                </select>
+                                            </div>
+                                            <div class="form-group-custom">
+                                                <label for="lp-qty">Quy mô phòng máy mong muốn (số ghế)</label>
+                                                <input type="number" id="lp-qty" min="1" max="100" value="16" required>
+                                            </div>
+                                            <button type="submit" class="btn-primary-custom">Gửi Đăng Ký Quan Tâm <i data-lucide="send"></i></button>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Panel Info -->
+                    <div class="simulator-info-panel glassmorphism">
+                        <h3><i data-lucide="help-circle"></i> Trình giả lập Khách hàng Đăng ký</h3>
+                        <p>Trang bên trái mô phỏng giao diện Landing Page của Sim Modular trên thiết bị di động của khách hàng (sau khi quét mã QR trên Catalog giấy hoặc bấm vào quảng cáo).</p>
+                        <div class="info-alert">
+                            <strong><i data-lucide="info"></i> Hướng dẫn thử nghiệm:</strong>
+                            <ol>
+                                <li>Nhập tên khách hàng và đơn vị (ví dụ: *Đại học Y Dược Hải Phòng*).</li>
+                                <li>Chọn chức vụ để kiểm thử hệ thống tự động tính điểm **Lead Scoring**.</li>
+                                <li>Nhấn nút **"Gửi Đăng Ký Quan Tâm"**.</li>
+                                <li>Hệ thống tự động chuyển dữ liệu về CRM ở tab tiếp theo!</li>
+                            </ol>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- TAB: 2. CRM & Lead Scoring -->
+            <section class="tab-content" id="tab-crm">
+                <div class="crm-layout glassmorphism">
+                    <div class="crm-header">
+                        <div class="crm-title-section">
+                            <h3><i data-lucide="database"></i> HubSpot CRM Simulator</h3>
+                            <p>Hệ thống tự động hóa tiếp nhận thông tin và chấm điểm tiềm năng (Lead Scoring) thời gian thực.</p>
+                        </div>
+                        <button class="btn-secondary-custom" onclick="clearLeads()"><i data-lucide="trash-2"></i> Xóa tất cả dữ liệu</button>
+                    </div>
+
+                    <div class="crm-table-container">
+                        <table class="crm-table">
+                            <thead>
+                                <tr>
+                                    <th>Khách Hàng</th>
+                                    <th>Đơn Vị</th>
+                                    <th>Chức Vụ</th>
+                                    <th>Quy Mô (Ghế)</th>
+                                    <th>Điểm Lead</th>
+                                    <th>Phân Loại</th>
+                                    <th>Trạng Thái Vé</th>
+                                    <th>Thao Tác</th>
+                                </tr>
+                            </thead>
+                            <tbody id="crm-lead-list">
+                                <!-- Dynamic Rows -->
+                                <tr>
+                                    <td colspan="8" class="empty-table">Chưa có khách hàng đăng ký. Hãy nhập dữ liệu ở Tab 1 hoặc nhấn nút nạp dữ liệu mẫu ở Dashboard!</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </section>
+
+            <!-- TAB: 3. Cổng Check-in & Sony 65' TV -->
+            <section class="tab-content" id="tab-checkin">
+                <div class="checkin-grid">
+                    <!-- Control Desk -->
+                    <div class="checkin-panel glassmorphism">
+                        <h3><i data-lucide="ticket"></i> Quầy Kiểm Soát Vé Ra Vào Sự Kiện</h3>
+                        <p>Simulate quét mã QR Code trên điện thoại của khách mời để hoàn tất thủ tục check-in tự động.</p>
+                        
+                        <div class="form-group-custom select-guest-container">
+                            <label for="checkin-guest-select">Chọn khách hàng quét vé:</label>
+                            <select id="checkin-guest-select" class="form-control-custom">
+                                <!-- Dynamic select options -->
+                            </select>
+                        </div>
+                        
+                        <div class="mock-scanner" onclick="triggerCheckIn()">
+                            <div class="scanner-laser"></div>
+                            <div class="scanner-target">
+                                <i data-lucide="qr-code" class="scanner-qr-icon"></i>
+                                <span class="scanner-text">Nhấp vào đây để Quét Vé (Check-in)</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- TV Sony Simulator -->
+                    <div class="tv-simulator-container">
+                        <div class="tv-bezel">
+                            <div class="tv-screen" id="tv-screen-display">
+                                <div class="tv-standby-screen">
+                                    <div class="sony-logo">SONY</div>
+                                    <div class="tv-placeholder-content">
+                                        <i data-lucide="tv-2" class="tv-logo-icon animate-pulse"></i>
+                                        <h2>Màn hình trình chiếu TV Sony 65" 4K</h2>
+                                        <p>Đang chờ tín hiệu quét vé từ Cổng Check-In...</p>
+                                    </div>
+                                </div>
+                                
+                                <!-- Dynamic Greeting Screen (hidden initially) -->
+                                <div class="tv-active-screen" id="tv-welcome-content">
+                                    <div class="tv-header-logo">SIM MODULAR PRESENTATION</div>
+                                    <div class="welcome-box">
+                                        <div class="welcome-badge">KHÁCH MỜI DANH DỰ</div>
+                                        <h1 class="welcome-title" id="welcome-name">PGS.TS. NGUYỄN VÀN A</h1>
+                                        <p class="welcome-subtitle" id="welcome-unit">KHOA RĂNG HÀM MẶT - ĐẠI HỌC Y DƯỢC HẢI PHÒNG</p>
+                                    </div>
+                                    <div class="tv-footer-message">
+                                        <span>Chào mừng Thầy Cô đến với Không gian trải nghiệm số Nha khoa Thế hệ mới!</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="tv-stand-base"></div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- TAB: 4. Automated Proposal & SLA -->
+            <section class="tab-content" id="tab-proposal">
+                <div class="proposal-layout">
+                    <!-- Controls and selector -->
+                    <div class="proposal-sidebar glassmorphism">
+                        <h3><i data-lucide="file-digit"></i> Cấu hình Đề xuất & Báo giá tự động</h3>
+                        <p>Chọn khách hàng đã hoàn tất Check-in để tự động tạo Hồ sơ Đề xuất Kỹ thuật kèm Báo giá tương ứng.</p>
+                        
+                        <div class="form-group-custom">
+                            <label for="proposal-guest-select">Khách hàng mục tiêu:</label>
+                            <select id="proposal-guest-select" class="form-control-custom" onchange="generateProposalPreview()">
+                                <!-- Dynamic options -->
+                            </select>
+                        </div>
+                        
+                        <div class="pricing-factors">
+                            <h4>Định mức đơn giá thiết bị (Tham chiếu):</h4>
+                            <ul>
+                                <li>Ghế Giảng viên (Full EBS): <strong>750.000.000 VND / Bộ</strong></li>
+                                <li>Ghế Sinh viên (Standard): <strong>350.000.000 VND / Bộ</strong></li>
+                                <li>Tivi Sony 65" 4K & Phụ kiện: <strong>26.000.000 VND / Hệ thống</strong></li>
+                            </ul>
+                        </div>
+                        
+                        <button class="btn-primary-custom" onclick="printProposal()"><i data-lucide="printer"></i> Xuất / In Hồ Sơ Báo Giá PDF</button>
+                    </div>
+
+                    <!-- Proposal PDF Preview Sheet -->
+                    <div class="proposal-preview-sheet" id="proposal-preview-content">
+                        <div class="proposal-pdf-header">
+                            <div class="pdf-logo">SIM MODULAR</div>
+                            <div class="pdf-doc-info">
+                                <h3>ĐỀ XUẤT KỸ THUẬT & BÁO GIÁ DỰ ÁN MUA SẮM</h3>
+                                <p>Hệ thống ghế răng mô phỏng nha khoa Sim Modular cao cấp</p>
+                            </div>
+                        </div>
+
+                        <div class="pdf-meta-grid">
+                            <div>
+                                <strong>Kính gửi (Khách hàng):</strong> <span id="pdf-client-name">PGS.TS. Nguyễn Văn A</span>
+                            </div>
+                            <div>
+                                <strong>Đơn vị công tác:</strong> <span id="pdf-client-unit">Khoa Răng Hàm Mặt - Đại học Y Dược Hải Phòng</span>
+                            </div>
+                            <div>
+                                <strong>Ngày tạo lập:</strong> <span id="pdf-date">27/05/2026</span>
+                            </div>
+                            <div>
+                                <strong>Mã số báo giá:</strong> <span>SM-2026-HP02</span>
+                            </div>
+                        </div>
+
+                        <div class="pdf-section-title">I. BẢNG TỔNG HỢP CẤU HÌNH & DỰ TOÁN BÁO GIÁ</div>
+                        <table class="pdf-table">
+                            <thead>
+                                <tr>
+                                    <th>STT</th>
+                                    <th>Mô Tả Thiết Bị & Cấu Hình Chi Tiết</th>
+                                    <th>Số Lượng</th>
+                                    <th>Đơn Giá (VND)</th>
+                                    <th>Thành Tiền (VND)</th>
+                                </tr>
+                            </thead>
+                            <tbody id="pdf-table-body">
+                                <!-- Dynamic calculation -->
+                            </tbody>
+                            <tfoot>
+                                <tr>
+                                    <td colspan="4" class="text-right"><strong>TỔNG DỰ TOÁN CHI PHÍ (Đã bao gồm thuế):</strong></td>
+                                    <td class="text-bold" id="pdf-total-price">0 VND</td>
+                                </tr>
+                            </tfoot>
+                        </table>
+
+                        <div class="pdf-section-title">II. CAM KẾT CHẤT LƯỢNG VÀ DỊCH VỤ HẬU MÃI VÀNG (SLA)</div>
+                        <div class="pdf-sla-content">
+                            <ol>
+                                <li><strong>Chất lượng thiết bị:</strong> Máy chính đạt tiêu chuẩn **ISO 13485** chuyên dùng y tế, hàng hóa nhập khẩu mới 100% sản xuất từ năm 2025 trở về sau.</li>
+                                <li><strong>Quy trình lắp đặt:</strong> Thi công lắp đặt hệ thống đường ống an toàn, đi dây tín hiệu EBS DVI âm sàn thẩm mỹ. Lắp đặt và hiệu chuẩn áp suất khí hơi dải 5.5-7.5 Bar và dải cấp nước 2.5-6 Bar.</li>
+                                <li><strong>Chính sách Bảo hành - Bảo trì định kỳ:</strong> Bảo hành chính hãng 12 tháng. Thực hiện **bảo trì định kỳ đặc biệt miễn phí 03 tháng/lần** (04 lần/năm) bởi kỹ sư chuyên trách.</li>
+                                <li><strong>Hỗ trợ kỹ thuật khẩn cấp:</strong> Phản hồi sự cố trực tiếp và có mặt tại hiện trường trong vòng **02 đến 04 giờ** kể từ khi tiếp nhận cuộc gọi báo hỏng.</li>
+                                <li><strong>Hỗ trợ linh kiện dài hạn:</strong> Đảm bảo bằng văn bản về việc cung ứng vật tư tiêu hao, phụ tùng và linh kiện thay thế chính hãng trong dải thời gian tối thiểu **08 năm** (đáp ứng đúng Thông tư số 23/2023/TT-BTC của Bộ Tài chính).</li>
+                            </ol>
+                        </div>
+
+                        <div class="pdf-signatures">
+                            <div class="sig-col">
+                                <p>ĐẠI DIỆN KHÁCH HÀNG</p>
+                                <span class="sig-space"></span>
+                                <strong id="pdf-client-sig">PGS.TS. Nguyễn Văn A</strong>
+                            </div>
+                            <div class="sig-col">
+                                <p>ĐẠI DIỆN NHÀ THẦU CUNG CẤP</p>
+                                <span class="sig-space sig-stamp">Antigravity Hub</span>
+                                <strong>GIÁM ĐỐC KỸ THUẬT & DỰ ÁN</strong>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <script src="app.js"></script>
+</body>
+</html>
