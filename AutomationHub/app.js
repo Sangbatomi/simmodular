@@ -5,6 +5,7 @@
 
 // 1. Initialize State and Local Storage
 let leads = JSON.parse(localStorage.getItem('sim_modular_leads')) || [];
+let sheetsApiUrl = localStorage.getItem('sim_modular_sheets_api_url') || '';
 
 // Run immediately upon loading
 document.addEventListener('DOMContentLoaded', () => {
@@ -14,6 +15,12 @@ document.addEventListener('DOMContentLoaded', () => {
     // Update system clock
     updateClock();
     setInterval(updateClock, 1000);
+    
+    // Populate Sheets API configuration input
+    const sheetsInput = document.getElementById('sheets-api-url');
+    if (sheetsInput) {
+        sheetsInput.value = sheetsApiUrl;
+    }
     
     // Check if empty, load default stats
     updateUI();
@@ -156,6 +163,160 @@ function clearLeads() {
     }
 }
 
+// Settings Toggle & Google Sheet API Sync Functions
+function toggleSettingsPanel() {
+    const panel = document.getElementById('crm-settings-panel');
+    if (panel) {
+        panel.style.display = panel.style.display === 'none' ? 'block' : 'none';
+    }
+}
+
+function saveApiUrl() {
+    const url = document.getElementById('sheets-api-url').value.trim();
+    sheetsApiUrl = url;
+    localStorage.setItem('sim_modular_sheets_api_url', url);
+    alert("Lưu địa chỉ API Google Apps Script thành công!");
+}
+
+// Async Sync from Google Sheets (CSV Export format)
+function syncFromGoogleSheet() {
+    const sheetCsvUrl = "https://docs.google.com/spreadsheets/d/1wK1MJCfNFvtHMwiRnuqlTzQGiDbZ6-RgBamn_wg5YqQ/export?format=csv&gid=0";
+    
+    alert("Đang bắt đầu đồng bộ dữ liệu trực tiếp từ Google Sheet...\nVui lòng chắc chắn rằng trang tính đã được chia sẻ quyền 'Bất kỳ ai có link đều có thể xem'.");
+    
+    fetch(sheetCsvUrl)
+        .then(response => {
+            if (!response.ok) {
+                throw new Error("Lỗi phản hồi mạng khi tải CSV. Có thể Google Sheet chưa được chia sẻ công khai.");
+            }
+            return response.text();
+        })
+        .then(text => {
+            // Check if returned data is HTML login page instead of CSV
+            if (text.includes("<!doctype html>") || text.includes("<html")) {
+                throw new Error("Trang tính chưa được chia sẻ công khai! Hãy đổi thiết lập quyền truy cập thành 'Bất kỳ ai có liên kết đều có thể xem' trên Google Sheet.");
+            }
+            
+            const importedRows = parseCSV(text);
+            if (importedRows.length === 0) {
+                alert("Đồng bộ thành công nhưng Google Sheet hiện tại không có dữ liệu dòng nào.");
+                return;
+            }
+            
+            // Map CSV rows to CRM Leads structure
+            const newLeads = importedRows.map((row, index) => {
+                // Dynamically map columns by checking header names or column positions
+                const keys = Object.keys(row);
+                
+                const name = row['Họ và Tên'] || row['Họ tên'] || row['Tên'] || row['Tên Khách Hàng'] || row[keys[1]] || 'Khách hàng ẩn danh';
+                const unit = row['Đơn Vị Công Tác'] || row['Đơn vị'] || row['Trường'] || row[keys[2]] || 'Đơn vị chưa xác định';
+                
+                const rawTitle = row['Chức Vụ'] || row['Chức danh'] || row[keys[3]] || 'Student';
+                let titleKey = 'Student';
+                if (rawTitle.toLowerCase().includes('dean') || rawTitle.toLowerCase().includes('trưởng khoa') || rawTitle.toLowerCase().includes('hiệu')) {
+                    titleKey = 'Dean';
+                } else if (rawTitle.toLowerCase().includes('lecturer') || rawTitle.toLowerCase().includes('giảng viên') || rawTitle.toLowerCase().includes('thầy') || rawTitle.toLowerCase().includes('cô')) {
+                    titleKey = 'Lecturer';
+                } else if (rawTitle.toLowerCase().includes('technician') || rawTitle.toLowerCase().includes('kỹ thuật') || rawTitle.toLowerCase().includes('kỹ sư')) {
+                    titleKey = 'Technician';
+                }
+                
+                const rawQty = row['Quy Mô (Ghế)'] || row['Số lượng'] || row['Quy mô'] || row[keys[4]];
+                const qty = parseInt(rawQty) || 16;
+                
+                // Calculate score
+                let score = 20;
+                let tier = 'Thấp';
+                if (titleKey === 'Dean') {
+                    score = 100;
+                    tier = 'VIP (Đặc Biệt)';
+                } else if (titleKey === 'Lecturer') {
+                    score = 75;
+                    tier = 'Tiềm Năng Cao';
+                } else if (titleKey === 'Technician') {
+                    score = 50;
+                    tier = 'Trung Bình';
+                }
+                if (qty >= 20) {
+                    score = Math.min(100, score + 10);
+                }
+                
+                const id = row['ID Khách Hàng'] || row['ID'] || row[keys[0]] || ('lead_imported_' + index + '_' + Date.now());
+                const status = row['Trạng Thái Vé'] || row['Trạng thái'] || row[keys[7]] || 'Not Sent';
+                const timestamp = row['Thời Gian Đăng Ký'] || row['Thời gian'] || row[keys[8]] || new Date().toLocaleString('vi-VN');
+                
+                return {
+                    id: id,
+                    name: name,
+                    unit: unit,
+                    title: titleKey,
+                    qty: qty,
+                    score: score,
+                    tier: tier,
+                    status: status,
+                    timestamp: timestamp
+                };
+            });
+            
+            // Overwrite CRM state with the Google Sheet synchronized data
+            leads = newLeads;
+            saveData();
+            updateUI();
+            renderCRMTable();
+            
+            alert(`Đồng bộ thành công thành công!\nĐã tải và xử lý ${newLeads.length} Lead trực tiếp từ Google Sheet.`);
+        })
+        .catch(error => {
+            console.error("Sheets Sync Error:", error);
+            alert(`Lỗi đồng bộ Google Sheet:\n${error.message}\n\nHướng dẫn khắc phục:\n1. Mở link Google Sheet của bạn.\n2. Bấm nút Chia sẻ (Share) ở góc phải.\n3. Đổi Quyền truy cập chung thành 'Bất kỳ ai có liên kết đều có thể xem' (Anyone with the link can view).\n4. Thử lại nút Đồng bộ.`);
+        });
+}
+
+// Robust RFC-compliant CSV Parser
+function parseCSV(text) {
+    const lines = text.split(/\r?\n/);
+    if (lines.length === 0 || !lines[0].trim()) return [];
+    
+    // Parse headers
+    const headers = parseCSVLine(lines[0]);
+    const result = [];
+    
+    for (let i = 1; i < lines.length; i++) {
+        const line = lines[i].trim();
+        if (!line) continue;
+        
+        const row = parseCSVLine(lines[i]);
+        if (row.length === headers.length) {
+            const obj = {};
+            headers.forEach((header, index) => {
+                obj[header] = row[index];
+            });
+            result.push(obj);
+        }
+    }
+    return result;
+}
+
+function parseCSVLine(line) {
+    const row = [];
+    let inQuotes = false;
+    let currentValue = '';
+    
+    for (let i = 0; i < line.length; i++) {
+        const char = line[i];
+        if (char === '"') {
+            inQuotes = !inQuotes;
+        } else if (char === ',' && !inQuotes) {
+            row.push(currentValue.trim().replace(/^"|"$/g, '').replace(/""/g, '"'));
+            currentValue = '';
+        } else {
+            currentValue += char;
+        }
+    }
+    row.push(currentValue.trim().replace(/^"|"$/g, '').replace(/""/g, '"'));
+    return row;
+}
+
 // 4. Form Submission and Lead Scoring Engine
 function handleFormSubmit(event) {
     event.preventDefault();
@@ -201,9 +362,26 @@ function handleFormSubmit(event) {
     saveData();
     updateUI();
     
+    // Asynchronously submit data directly to Google Sheets if API URL is configured
+    if (sheetsApiUrl) {
+        console.log("Attempting to sync lead data to Google Sheet Apps Script API...", sheetsApiUrl);
+        fetch(sheetsApiUrl, {
+            method: "POST",
+            mode: "no-cors", // Crucial bypass for Apps Script redirect CORS issues
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify(newLead)
+        }).then(() => {
+            console.log("Lead synced to Google Sheets successfully.");
+        }).catch(err => {
+            console.warn("Failed to sync lead to Google Sheets:", err);
+        });
+    }
+    
     document.getElementById('landing-form').reset();
     
-    alert(`Đăng ký thành công!\nKhách hàng: ${name}\nĐiểm Lead Tự động: ${score}/100 - Phân nhóm: ${tier}.\nHệ thống đã chuyển dữ liệu về CRM.`);
+    alert(`Đăng ký thành công!\nKhách hàng: ${name}\nĐiểm Lead Tự động: ${score}/100 - Phân nhóm: ${tier}.\nHệ thống đã chuyển dữ liệu về CRM.` + (sheetsApiUrl ? "\nDữ liệu đang được đồng bộ tự động lên Google Sheet của bạn!" : ""));
     
     // Dynamic dashboard flow update
     const ind2 = document.getElementById('ind-step-2');
