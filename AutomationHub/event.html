@@ -1,0 +1,772 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sự Kiện Ra Mắt & Trải Nghiệm Hệ Thống Nha Khoa Sim Modular</title>
+    <meta name="description" content="Đăng ký tham gia sự kiện Live Demo hệ thống ghế răng mô phỏng nha khoa Sim Modular thế hệ mới tại Đại học Y Dược Hải Phòng.">
+    <!-- Google Fonts: Inter & Outfit -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Outfit:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <style>
+        /* ==========================================================================
+           EVENT WEBSITE PREMIUM STYLING (event.html)
+           Style: Ultra-Premium, Cinematic Light/Dark Contrast, Teal/Indigo Gradients
+           ========================================================================== */
+        :root {
+            --bg-deep: #030712;
+            --bg-card: rgba(17, 24, 39, 0.6);
+            --border-glass: rgba(255, 255, 255, 0.08);
+            --primary: #0ea5e9;
+            --primary-glow: rgba(14, 165, 233, 0.3);
+            --secondary: #6366f1;
+            --text-primary: #f8fafc;
+            --text-secondary: #cbd5e1;
+            --text-muted: #64748b;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            scroll-behavior: smooth;
+        }
+
+        body {
+            background-color: var(--bg-deep);
+            color: var(--text-primary);
+            font-family: 'Inter', sans-serif;
+            min-height: 100vh;
+            overflow-x: hidden;
+            background-image: 
+                radial-gradient(circle at 10% 20%, rgba(99, 102, 241, 0.1) 0%, transparent 40%),
+                radial-gradient(circle at 90% 80%, rgba(14, 165, 233, 0.1) 0%, transparent 45%);
+        }
+
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: var(--bg-deep);
+        }
+        ::-webkit-scrollbar-thumb {
+            background: var(--border-glass);
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: var(--primary);
+        }
+
+        /* ==========================================================================
+           HEADER / NAVIGATION
+           ========================================================================== */
+        header {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            z-index: 100;
+            background: rgba(3, 7, 18, 0.7);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border-bottom: 1px solid var(--border-glass);
+        }
+
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            height: 80px;
+            padding: 0 24px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .logo-container {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .logo-icon {
+            width: 40px;
+            height: 40px;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #fff;
+            box-shadow: 0 0 15px var(--primary-glow);
+        }
+
+        .logo-text h1 {
+            font-family: 'Outfit', sans-serif;
+            font-size: 20px;
+            font-weight: 800;
+            letter-spacing: 0.5px;
+            background: linear-gradient(to right, #ffffff, #94a3b8);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .logo-text span {
+            display: block;
+            font-size: 9px;
+            font-weight: 700;
+            color: var(--primary);
+            letter-spacing: 2px;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 32px;
+            list-style: none;
+        }
+
+        .nav-links a {
+            color: var(--text-secondary);
+            text-decoration: none;
+            font-size: 14px;
+            font-weight: 500;
+            transition: all 0.3s;
+        }
+
+        .nav-links a:hover {
+            color: var(--primary);
+        }
+
+        .btn-nav-register {
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            color: #fff;
+            padding: 10px 22px;
+            border-radius: 6px;
+            text-decoration: none;
+            font-family: 'Outfit', sans-serif;
+            font-weight: 600;
+            font-size: 13px;
+            box-shadow: 0 4px 15px var(--primary-glow);
+            transition: all 0.3s;
+        }
+
+        .btn-nav-register:hover {
+            transform: translateY(-1px);
+            box-shadow: 0 6px 20px rgba(14, 165, 233, 0.5);
+        }
+
+        /* ==========================================================================
+           HERO SECTION
+           ========================================================================== */
+        .hero-section {
+            padding: 160px 24px 100px;
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 60px;
+            align-items: center;
+        }
+
+        .hero-left h2 {
+            font-family: 'Outfit', sans-serif;
+            font-size: 14px;
+            font-weight: 700;
+            color: var(--primary);
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            margin-bottom: 16px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .hero-left h3 {
+            font-family: 'Outfit', sans-serif;
+            font-size: 48px;
+            font-weight: 900;
+            line-height: 1.15;
+            letter-spacing: -0.5px;
+            margin-bottom: 24px;
+            background: linear-gradient(to bottom right, #ffffff, #94a3b8);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .hero-left p {
+            font-size: 16px;
+            color: var(--text-secondary);
+            line-height: 1.6;
+            margin-bottom: 36px;
+        }
+
+        .hero-details-box {
+            background: var(--bg-card);
+            border: 1px solid var(--border-glass);
+            border-radius: 12px;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+            margin-bottom: 36px;
+        }
+
+        .detail-item {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            font-size: 14px;
+            color: var(--text-secondary);
+        }
+
+        .detail-item i {
+            color: var(--primary);
+        }
+
+        .hero-actions {
+            display: flex;
+            gap: 16px;
+        }
+
+        .btn-hero-primary {
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            color: #fff;
+            padding: 14px 28px;
+            border-radius: 8px;
+            text-decoration: none;
+            font-family: 'Outfit', sans-serif;
+            font-weight: 600;
+            font-size: 14px;
+            box-shadow: 0 4px 20px var(--primary-glow);
+            transition: all 0.3s;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .btn-hero-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 25px rgba(14, 165, 233, 0.5);
+        }
+
+        .btn-hero-secondary {
+            background: rgba(255, 255, 255, 0.02);
+            color: #fff;
+            border: 1px solid var(--border-glass);
+            padding: 14px 28px;
+            border-radius: 8px;
+            text-decoration: none;
+            font-family: 'Outfit', sans-serif;
+            font-weight: 600;
+            font-size: 14px;
+            transition: all 0.3s;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .btn-hero-secondary:hover {
+            background: rgba(255, 255, 255, 0.05);
+            border-color: var(--text-secondary);
+        }
+
+        .hero-right {
+            display: flex;
+            justify-content: center;
+            position: relative;
+        }
+
+        /* Glassmorphism Registration Card */
+        .register-card {
+            width: 100%;
+            max-width: 440px;
+            background: rgba(17, 24, 39, 0.7);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid var(--border-glass);
+            border-radius: 20px;
+            padding: 32px;
+            box-shadow: 0 20px 50px rgba(0,0,0,0.6);
+            position: relative;
+        }
+
+        .register-card::before {
+            content: '';
+            position: absolute;
+            top: -1px;
+            left: -1px;
+            right: -1px;
+            bottom: -1px;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            border-radius: 20px;
+            z-index: -1;
+            mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+            -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+            mask-composite: exclude;
+            -webkit-mask-composite: xor;
+            padding: 1px;
+            pointer-events: none;
+        }
+
+        .register-card h4 {
+            font-family: 'Outfit', sans-serif;
+            font-size: 20px;
+            font-weight: 700;
+            text-align: center;
+            margin-bottom: 8px;
+        }
+
+        .register-card p.card-sub {
+            font-size: 12px;
+            color: var(--text-secondary);
+            text-align: center;
+            margin-bottom: 24px;
+        }
+
+        .form-group {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+            margin-bottom: 18px;
+        }
+
+        .form-group label {
+            font-size: 12px;
+            color: var(--text-secondary);
+            font-weight: 500;
+        }
+
+        .form-group input,
+        .form-group select {
+            background-color: rgba(9, 13, 22, 0.8);
+            border: 1px solid var(--border-glass);
+            border-radius: 8px;
+            padding: 12px 14px;
+            color: #fff;
+            font-family: 'Inter', sans-serif;
+            font-size: 13px;
+            outline: none;
+            transition: all 0.3s;
+            width: 100%;
+        }
+
+        .form-group input:focus,
+        .form-group select:focus {
+            border-color: var(--primary);
+            box-shadow: 0 0 10px var(--primary-glow);
+        }
+
+        .btn-submit {
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            color: #fff;
+            border: none;
+            outline: none;
+            border-radius: 8px;
+            padding: 14px;
+            font-family: 'Outfit', sans-serif;
+            font-weight: 700;
+            font-size: 14px;
+            cursor: pointer;
+            width: 100%;
+            transition: all 0.3s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            box-shadow: 0 4px 15px var(--primary-glow);
+        }
+
+        .btn-submit:hover {
+            box-shadow: 0 6px 20px rgba(14, 165, 233, 0.5);
+            transform: translateY(-1px);
+        }
+
+        /* Ticket result popup */
+        .ticket-modal-overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(3, 7, 18, 0.9);
+            backdrop-filter: blur(10px);
+            z-index: 200;
+            align-items: center;
+            justify-content: center;
+            padding: 24px;
+        }
+
+        .ticket-box {
+            background: #111827;
+            border: 1px solid var(--border-glass);
+            border-radius: 20px;
+            width: 100%;
+            max-width: 480px;
+            padding: 30px;
+            box-shadow: 0 25px 50px rgba(0,0,0,0.8);
+            position: relative;
+            text-align: center;
+        }
+
+        .ticket-success-icon {
+            width: 54px;
+            height: 54px;
+            background-color: rgba(16, 185, 129, 0.15);
+            border-radius: 50%;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            color: #10b981;
+            margin-bottom: 20px;
+        }
+
+        .ticket-box h3 {
+            font-family: 'Outfit', sans-serif;
+            font-size: 22px;
+            margin-bottom: 6px;
+        }
+
+        .ticket-box p.ticket-intro {
+            font-size: 13px;
+            color: var(--text-secondary);
+            margin-bottom: 24px;
+        }
+
+        /* Futuristic Ticket layout */
+        .ticket-card {
+            background: linear-gradient(135deg, #1e293b 0%, #0f172a 100%);
+            border: 1px dashed rgba(255,255,255,0.15);
+            border-radius: 12px;
+            padding: 24px;
+            text-align: left;
+            margin-bottom: 24px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .ticket-card::before,
+        .ticket-card::after {
+            content: '';
+            position: absolute;
+            top: 50%;
+            width: 20px;
+            height: 20px;
+            background-color: #111827;
+            border-radius: 50%;
+            transform: translateY(-50%);
+        }
+        .ticket-card::before { left: -10px; }
+        .ticket-card::after { right: -10px; }
+
+        .ticket-header-brand {
+            font-family: 'Outfit', sans-serif;
+            font-size: 11px;
+            font-weight: 800;
+            color: var(--primary);
+            letter-spacing: 2px;
+            margin-bottom: 12px;
+        }
+
+        .ticket-guest-name {
+            font-family: 'Outfit', sans-serif;
+            font-size: 18px;
+            font-weight: 700;
+            color: #fff;
+            margin-bottom: 4px;
+        }
+
+        .ticket-guest-unit {
+            font-size: 12px;
+            color: var(--text-secondary);
+            margin-bottom: 16px;
+        }
+
+        .ticket-info-row {
+            display: grid;
+            grid-template-columns: 2fr 1fr;
+            gap: 12px;
+            border-top: 1px solid rgba(255,255,255,0.05);
+            padding-top: 16px;
+            margin-bottom: 16px;
+        }
+
+        .ticket-meta h5 {
+            font-size: 9px;
+            color: var(--text-muted);
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            margin-bottom: 4px;
+        }
+
+        .ticket-meta p {
+            font-size: 12px;
+            font-weight: 600;
+            color: #fff;
+        }
+
+        .ticket-qr-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background-color: #fff;
+            padding: 8px;
+            border-radius: 6px;
+            width: 72px;
+            height: 72px;
+            justify-self: end;
+        }
+
+        .ticket-qr-container i {
+            color: #000;
+            width: 56px;
+            height: 56px;
+        }
+
+        .btn-modal-close {
+            background: rgba(255, 255, 255, 0.05);
+            color: #fff;
+            border: 1px solid var(--border-glass);
+            border-radius: 8px;
+            padding: 12px 24px;
+            font-family: 'Outfit', sans-serif;
+            font-weight: 600;
+            font-size: 13px;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .btn-modal-close:hover {
+            background: rgba(255, 255, 255, 0.08);
+            border-color: var(--text-secondary);
+        }
+
+        /* ==========================================================================
+           FEATURES SECTION
+           ========================================================================== */
+        .features-section {
+            padding: 100px 24px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .sect-header {
+            text-align: center;
+            max-width: 600px;
+            margin: 0 auto 60px;
+        }
+
+        .sect-header h4 {
+            font-family: 'Outfit', sans-serif;
+            font-size: 13px;
+            font-weight: 700;
+            color: var(--primary);
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            margin-bottom: 12px;
+        }
+
+        .sect-header h3 {
+            font-family: 'Outfit', sans-serif;
+            font-size: 36px;
+            font-weight: 800;
+            letter-spacing: -0.5px;
+            margin-bottom: 16px;
+        }
+
+        .sect-header p {
+            font-size: 14px;
+            color: var(--text-secondary);
+            line-height: 1.5;
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 24px;
+        }
+
+        .feature-card-large {
+            background: var(--bg-card);
+            border: 1px solid var(--border-glass);
+            border-radius: 16px;
+            padding: 32px;
+            transition: all 0.3s;
+        }
+
+        .feature-card-large:hover {
+            border-color: rgba(14, 165, 233, 0.25);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.4);
+            transform: translateY(-2px);
+        }
+
+        .feat-large-icon {
+            width: 48px;
+            height: 48px;
+            background-color: var(--primary-glow);
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--primary);
+            margin-bottom: 24px;
+        }
+
+        .feature-card-large h4 {
+            font-family: 'Outfit', sans-serif;
+            font-size: 18px;
+            font-weight: 700;
+            margin-bottom: 12px;
+        }
+
+        .feature-card-large p {
+            font-size: 13px;
+            color: var(--text-secondary);
+            line-height: 1.6;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Header Navigation -->
+    <header>
+        <div class="nav-container">
+            <div class="logo-container">
+                <div class="logo-icon"><i data-lucide="cpu"></i></div>
+                <div class="logo-text">
+                    <h1>Sim Modular</h1>
+                    <span>LAUNCH EVENT 2025</span>
+                </div>
+            </div>
+            <ul class="nav-links">
+                <li><a href="#features">Đặc Điểm Vượt Trội</a></li>
+                <li><a href="#schedule">Lịch Trình Sự Kiện</a></li>
+                <li><a href="#register">Đăng Ký Vé</a></li>
+            </ul>
+            <a href="#register" class="btn-nav-register">Đăng Ký Tham Dự</a>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero-section">
+        <div class="hero-left">
+            <h2><i data-lucide="sparkles"></i> Sự Kiện Độc Quyền Quý IV/2025</h2>
+            <h3>Live Demo Trải Nghiệm Nha Khoa Thế Hệ Mới</h3>
+            <p>Khám phá hệ thống ghế răng mô phỏng lâm sàng **Sim Modular** cao cấp tích hợp đồng bộ công nghệ truyền hình ảnh EBS không trễ từ Đức và hệ thống tay khoan động lực học Dentsply Sirona.</p>
+            
+            <div class="hero-details-box">
+                <div class="detail-item">
+                    <i data-lucide="calendar"></i>
+                    <span><strong>Thời gian:</strong> Tháng 11 năm 2025 (Quý IV/2025)</span>
+                </div>
+                <div class="detail-item">
+                    <i data-lucide="map-pin"></i>
+                    <span><strong>Địa điểm:</strong> Khoa Răng Hàm Mặt - Trường Đại học Y Dược Hải Phòng</span>
+                </div>
+                <div class="detail-item">
+                    <i data-lucide="shield-check"></i>
+                    <span><strong>Tiêu chuẩn chất lượng:</strong> Đạt tiêu chuẩn y tế quốc tế **ISO 13485**</span>
+                </div>
+            </div>
+
+            <div class="hero-actions">
+                <a href="#register" class="btn-hero-primary">Đăng Ký Nhận Vé QR <i data-lucide="chevron-right"></i></a>
+                <a href="#features" class="btn-hero-secondary">Đặc Điểm Kỹ Thuật <i data-lucide="info"></i></a>
+            </div>
+        </div>
+
+        <div class="hero-right" id="register">
+            <!-- Registration Glassmorphism Card -->
+            <div class="register-card">
+                <h4>Đăng Ký Nhận Vé Tham Dự</h4>
+                <p class="card-sub">Hệ thống tự động liên kết dữ liệu thời gian thực với Google Sheet</p>
+                
+                <form id="event-register-form" onsubmit="submitEventRegistration(event)">
+                    <div class="form-group">
+                        <label for="reg-name">Họ và Tên</label>
+                        <input type="text" id="reg-name" required placeholder="Ví dụ: PGS.TS. Nguyễn Văn A">
+                    </div>
+                    <div class="form-group">
+                        <label for="reg-unit">Đơn vị công tác</label>
+                        <input type="text" id="reg-unit" required placeholder="Ví dụ: Đại học Y Dược Hải Phòng">
+                    </div>
+                    <div class="form-group">
+                        <label for="reg-title">Chức vụ chuyên môn</label>
+                        <select id="reg-title">
+                            <option value="Dean">Trưởng khoa RHM / Hiệu phó / Hiệu trưởng (VIP)</option>
+                            <option value="Lecturer">Giảng viên chuyên môn khoa RHM</option>
+                            <option value="Technician">Kỹ thuật viên quản lý phòng máy</option>
+                            <option value="Student">Sinh viên thực tập y khoa</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="reg-qty">Quy mô phòng máy dự kiến (số ghế)</label>
+                        <input type="number" id="reg-qty" min="1" max="100" value="16" required>
+                    </div>
+                    <button type="submit" class="btn-submit">Đăng Ký & Nhận Vé QR <i data-lucide="ticket"></i></button>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <!-- Features Section -->
+    <section class="features-section" id="features">
+        <div class="sect-header">
+            <h4>Giá Trị Cốt Lõi</h4>
+            <h3>Công Nghệ Vượt Trội Của Sim Modular</h3>
+            <p>Hệ thống mang lại trải nghiệm thực hành lâm sàng thực tế tốt nhất, thu hẹp khoảng cách giữa giảng đường và điều trị lâm sàng.</p>
+        </div>
+        <div class="features-grid">
+            <div class="feature-card-large">
+                <div class="feat-large-icon"><i data-lucide="zap"></i></div>
+                <h4>Mạng Truyền Hình Ảnh EBS</h4>
+                <p>Công nghệ truyền dẫn đa phương tiện EBS từ Đức, hỗ trợ truyền hình ảnh thời gian thực, không nén, không độ trễ, hoàn toàn độc lập không cần mạng LAN/WLAN để đảm bảo ổn định và bảo mật.</p>
+            </div>
+            <div class="feature-card-large">
+                <div class="feat-large-icon"><i data-lucide="gauge"></i></div>
+                <h4>Tay Khoan Dentsply Sirona</h4>
+                <p>Trang bị đồng bộ tay khoan nhanh T3 Racer Midwest công suất mạnh mẽ 30W, ổ bi gốm sứ siêu bền chống ma sát sinh nhiệt và kết cấu 4 tia phun sương giải nhiệt men răng tối ưu.</p>
+            </div>
+            <div class="feature-card-large">
+                <div class="feat-large-icon"><i data-lucide="shield-alert"></i></div>
+                <h4>Đạt Tiêu Chuẩn ISO 13485</h4>
+                <p>Đáp ứng toàn diện các chứng nhận quản lý chất lượng trang thiết bị y tế quốc tế nghiêm ngặt, đảm bảo an toàn sinh học tuyệt đối cho người dạy và người thực hành.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Ticket Popup Modal Overlay -->
+    <div class="ticket-modal-overlay" id="ticket-modal">
+        <div class="ticket-box">
+            <div class="ticket-success-icon"><i data-lucide="check-circle-2"></i></div>
+            <h3>Đăng Ký Thành Công!</h3>
+            <p class="ticket-intro">Thông tin đăng ký của bạn đã được lưu trữ tự động vào Google Sheet. Đây là vé tham dự chính thức của bạn:</p>
+            
+            <!-- Futuristic Ticket Card -->
+            <div class="ticket-card" id="printable-ticket">
+                <div class="ticket-header-brand">SIM MODULAR LAUNCH EVENT</div>
+                <div class="ticket-guest-name" id="t-name">PGS.TS. NGUYỄN VĂN A</div>
+                <div class="ticket-guest-unit" id="t-unit">ĐẠI HỌC Y DƯỢC HẢI PHÒNG</div>
+                
+                <div class="ticket-info-row">
+                    <div class="ticket-meta">
+                        <h5>Chức Vụ</h5>
+                        <p id="t-title">TRƯỞNG KHOA RHM / BAN GIÁM HIỆU</p>
+                        <h5 style="margin-top: 10px;">Thời Gian Lịch Trình</h5>
+                        <p>Tháng 11/2025 • LIVE DEMO</p>
+                    </div>
+                    <div class="ticket-qr-container">
+                        <i data-lucide="qr-code"></i>
+                    </div>
+                </div>
+            </div>
+
+            <button class="btn-modal-close" onclick="closeTicketModal()">Đóng & Quay Lại</button>
+        </div>
+    </div>
+
+    <script src="event.js"></script>
+</body>
+</html>
